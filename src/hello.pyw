@@ -1,6 +1,6 @@
 import sys
-from PyQt4.QtCore import SIGNAL, SLOT
-from PyQt4.QtGui import QApplication, QMainWindow, QAction
+from PyQt4.QtCore import SIGNAL
+from PyQt4.QtGui import QApplication, QMainWindow, QAction, QMessageBox 
 
 from quit_button import QuitButton
 from quit_confirm import QuitConfirm
@@ -14,7 +14,7 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("O Hai")
 
         self.setCentralWidget(QuitButton(self))
-
+        
 
     def add_file_menu(self):
         file_menu = self.menuBar().addMenu('File')
@@ -26,11 +26,27 @@ class MainWindow(QMainWindow):
     
     
     def add_help_menu(self):
-        pass
+        help_menu = self.menuBar().addMenu('Help')
+        
+        about = QAction('About', self)
+        self.connect(about, SIGNAL('triggered()'), self.show_about_dialog)
+
+        help_menu.addAction(about)
     
+    
+    def show_about_dialog(self):
+        print 'foo'
+        about_dialog = QMessageBox(self)
+        about_dialog.setWindowTitle("About")
+        about_dialog.setText("Sean O'Malley did this.")
+        about_dialog.setStandardButtons(QMessageBox.Ok)
+        about_dialog.setDefaultButton(QMessageBox.Ok)
+        about_dialog.exec_()
+
     
     def closeEvent(self, event=None):
         QuitConfirm(self.parent()).display()
+
 
 app = QApplication(sys.argv)
 

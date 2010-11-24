@@ -4,6 +4,7 @@ from PyQt4.QtGui import QApplication, QMainWindow, QAction, QMessageBox
 
 from quit_button import QuitButton
 from quit_confirm import QuitConfirm
+from browser import BrowserWidget
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -14,13 +15,14 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("O Hai")
 
         self.setCentralWidget(QuitButton(self))
+#        self.setCentralWidget(BrowserWidget(self))
         
 
     def add_file_menu(self):
         file_menu = self.menuBar().addMenu('File')
         
         exit = QAction('Quit', self)
-        self.connect(exit, SIGNAL('triggered()'), self.closeEvent)
+        self.connect(exit, SIGNAL('triggered()'), self.quit)
 
         file_menu.addAction(exit)
     
@@ -35,7 +37,6 @@ class MainWindow(QMainWindow):
     
     
     def show_about_dialog(self):
-        print 'foo'
         about_dialog = QMessageBox(self)
         about_dialog.setWindowTitle("About")
         about_dialog.setText("Sean O'Malley did this.")
@@ -44,7 +45,7 @@ class MainWindow(QMainWindow):
         about_dialog.exec_()
 
     
-    def closeEvent(self, event=None):
+    def quit(self, event=None):
         QuitConfirm(self.parent()).display()
 
 

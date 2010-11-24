@@ -1,5 +1,5 @@
 import sys
-from PyQt4.QtCore import SIGNAL
+from PyQt4.QtCore import SIGNAL, SLOT
 from PyQt4.QtGui import QApplication, QMainWindow, QAction
 
 from quit_button import QuitButton
@@ -14,13 +14,13 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("O Hai")
 
         self.setCentralWidget(QuitButton(self))
-        
+
 
     def add_file_menu(self):
         file_menu = self.menuBar().addMenu('File')
         
         exit = QAction('Quit', self)
-        self.connect(exit, SIGNAL('triggered()'), self.quit)
+        self.connect(exit, SIGNAL('triggered()'), self.closeEvent)
 
         file_menu.addAction(exit)
     
@@ -29,7 +29,7 @@ class MainWindow(QMainWindow):
         pass
     
     
-    def quit(self):
+    def closeEvent(self, event=None):
         QuitConfirm(self.parent()).display()
 
 app = QApplication(sys.argv)

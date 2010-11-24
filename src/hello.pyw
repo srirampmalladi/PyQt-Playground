@@ -2,7 +2,6 @@ import sys
 from PyQt4.QtCore import SIGNAL
 from PyQt4.QtGui import QApplication, QMainWindow, QAction, QMessageBox 
 
-from quit_button import QuitButton
 from quit_confirm import QuitConfirm
 from browser import BrowserWidget
 
@@ -14,8 +13,7 @@ class MainWindow(QMainWindow):
         self.resize(160, 60)
         self.setWindowTitle("O Hai")
 
-        self.setCentralWidget(QuitButton(self))
-#        self.setCentralWidget(BrowserWidget(self))
+        self.setCentralWidget(BrowserWidget(self))
         
 
     def add_file_menu(self):

@@ -1,5 +1,5 @@
 from PyQt4 import QtWebKit
-from PyQt4.QtGui import QWidget, QVBoxLayout, QHBoxLayout, QLineEdit, QPushButton, QMessageBox
+from PyQt4.QtGui import QWidget, QVBoxLayout, QHBoxLayout, QLineEdit, QPushButton, QMessageBox, QLabel
 from PyQt4.QtCore import SIGNAL
 
 from quit_button import QuitButton
@@ -11,7 +11,7 @@ class BrowserWidget(QWidget):
         vlayout.addStretch(1)
         
         hlayout = QHBoxLayout()
-        
+
         self.url_box = QLineEdit()
         go = QPushButton(self)
         go.setText("go")
@@ -19,15 +19,14 @@ class BrowserWidget(QWidget):
         
         hlayout.addWidget(self.url_box)
         hlayout.addWidget(go)
-        
         vlayout.addLayout(hlayout)
+        
+        self.browser = QLabel(self)
+        vlayout.addWidget(self.browser)
+        
         vlayout.addWidget(QuitButton())
         self.setLayout(vlayout)
 
+
     def show_browser(self):
-        dummy_dialog = QMessageBox(self)
-        dummy_dialog.setWindowTitle("Browser")
-        dummy_dialog.setText(self.url_box.text())
-        dummy_dialog.setStandardButtons(QMessageBox.Ok)
-        dummy_dialog.setDefaultButton(QMessageBox.Ok)
-        dummy_dialog.exec_()
+        self.browser.setText(self.url_box.text())

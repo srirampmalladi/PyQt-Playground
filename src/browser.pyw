@@ -1,6 +1,6 @@
-from PyQt4 import QtWebKit
+from PyQt4.QtWebKit import QWebView
 from PyQt4.QtGui import QWidget, QVBoxLayout, QHBoxLayout, QLineEdit, QPushButton, QMessageBox, QLabel
-from PyQt4.QtCore import SIGNAL
+from PyQt4.QtCore import SIGNAL, QUrl
 
 from quit_button import QuitButton
 
@@ -8,7 +8,6 @@ class BrowserWidget(QWidget):
     def __init__(self, parent=None):
         QWidget.__init__(self, parent)
         vlayout = QVBoxLayout()
-        vlayout.addStretch(1)
         
         hlayout = QHBoxLayout()
 
@@ -21,7 +20,7 @@ class BrowserWidget(QWidget):
         hlayout.addWidget(go)
         vlayout.addLayout(hlayout)
         
-        self.browser = QLabel(self)
+        self.browser = QWebView(self)
         vlayout.addWidget(self.browser)
         
         vlayout.addWidget(QuitButton())
@@ -29,4 +28,6 @@ class BrowserWidget(QWidget):
 
 
     def show_browser(self):
-        self.browser.setText(self.url_box.text())
+        url = QUrl(self.url_box.text())
+        self.browser.load(url)
+        

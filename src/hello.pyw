@@ -10,7 +10,7 @@ class MainWindow(QMainWindow):
         QMainWindow.__init__(self)
         self.add_file_menu()
         self.add_help_menu()
-        self.resize(160, 60)
+        self.resize(600, 400)
         self.setWindowTitle("O Hai")
 
         self.setCentralWidget(BrowserWidget(self))

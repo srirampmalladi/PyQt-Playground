@@ -9,18 +9,32 @@ class BrowserWidget(QWidget):
         QWidget.__init__(self, parent)
         vlayout = QVBoxLayout()
         
-        hlayout = QHBoxLayout()
+        url_bar = QHBoxLayout()
 
         self.url_box = QLineEdit()
         self.connect(self.url_box, SIGNAL('returnPressed()'), self.show_browser)
+        
         go = QPushButton(self)
-        go.setText("go")
+        go.setText("Go")
         self.connect(go, SIGNAL('clicked()'), self.show_browser)
         
-        hlayout.addWidget(self.url_box)
-        hlayout.addWidget(go)
-        vlayout.addLayout(hlayout)
+        url_bar.addWidget(self.url_box)
+        url_bar.addWidget(go)
+        vlayout.addLayout(url_bar)
         
+        javascript_bar = QHBoxLayout()
+
+        self.javascript_box = QLineEdit()
+        self.connect(self.javascript_box, SIGNAL('returnPressed()'), self.send_javascript)
+        
+        ex = QPushButton(self)
+        ex.setText("Execute on page")
+        self.connect(ex, SIGNAL('clicked()'), self.send_javascript)
+        
+        javascript_bar.addWidget(self.javascript_box)
+        javascript_bar.addWidget(ex)
+        vlayout.addLayout(javascript_bar)
+
         self.browser = QWebView(self)
         vlayout.addWidget(self.browser)
         
@@ -32,3 +46,5 @@ class BrowserWidget(QWidget):
         url = QUrl(self.url_box.text())
         self.browser.load(url)
         
+    def send_javascript(self):
+        self.browser.page().currentFrame().evaluateJavaScript(self.javascript_box.text())

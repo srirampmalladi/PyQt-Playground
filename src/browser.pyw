@@ -12,6 +12,7 @@ class BrowserWidget(QWidget):
         hlayout = QHBoxLayout()
 
         self.url_box = QLineEdit()
+        self.connect(self.url_box, SIGNAL('returnPressed()'), self.show_browser)
         go = QPushButton(self)
         go.setText("go")
         self.connect(go, SIGNAL('clicked()'), self.show_browser)

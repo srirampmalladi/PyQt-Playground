@@ -1,0 +1,9 @@
+To run:
+$ cd src
+$ python main.pyw
+
+To create exe:
+$ cd setup
+$ python setup.py py2exe
+
+The exe and other files are created in in setup/dist/

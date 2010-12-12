@@ -2,3 +2,4 @@
 setup/build
 setup/dist
 *.exe
+*.zip
